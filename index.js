@@ -1,8 +1,16 @@
 import { Server } from "socket.io";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import express from 'express';
 
-const io = new Server({cors: {origin: "http://localhost:3000"}});
+// Create a new instance of the Socket.IO server
+const io = new Server({cors: {origin: "https://relicario-app.vercel.app/" || "http://localhost:3000" }});
 
 let onlineUsers = [];
+
+const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 io.on("connection", (socket) => {    
 
@@ -31,7 +39,9 @@ io.on("connection", (socket) => {
 });
 
 
-
+app.get('/', (req, res) => {  
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 
 io.listen(4000);
