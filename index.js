@@ -4,13 +4,19 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 
 // Create a new instance of the Socket.IO server
-const io = new Server({cors: {origin: "https://relicario-app.vercel.app/" || "http://localhost:3000" }});
+const io = new Server({
+  cors: {
+    origin: ["https://relicario-app.vercel.app", "http://localhost:3000"],    
+  }
+});
+
 
 let onlineUsers = [];
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 io.on("connection", (socket) => {    
 
